@@ -7,13 +7,17 @@ import json
 
 
 class Wikipedia:
-    def getWikipediaID(title):
+
+    def __init__(self):
+        print("test")
+
+    def getWikipediaID(self, title):
         url = ("http://en.wikipedia.org/w/api.php?action=query&titles={}&format=json").format(title)
         response = json.loads(requests.get(url).text)
         for a in response["query"]["pages"].keys():
             return int(a)
 
-    def getOffset(path, pageID):
+    def getOffset(self, path, pageID):
         # Read the byte offsets from the index file
         page_offset = []
         last_offset = 0
@@ -33,29 +37,29 @@ class Wikipedia:
 
         return [int(last_offset), int(curr_off)]
 
-    def getByte(path, off0, off1):
+    def getByte(self, path, off0, off1):
         arr = None
         with open(path, 'rb') as f:
             f.seek(off0)
             arr = f.read(off1 - off0)
         return arr
 
-    def getFullArticle(text):
-        pageID = getWikipediaID(text)
-        off = getOffset("index.txt", pageID)
-        byte = getByte("enwiki-20210101-pages-articles-multistream.xml.bz2", off[0], off[1])
-        return getArticle(byte, pageID)
+    def getFullArticle(self, text):
+        pageID = self.getWikipediaID(text)
+        off = self.getOffset("index.txt", pageID)
+        byte = self.getByte("enwiki-20210101-pages-articles-multistream.xml.bz2", off[0], off[1])
+        return self.getArticle(byte, pageID)
 
-    def getReadable(list_xml_el):
+    def getReadable(self, list_xml_el):
         return [el.text for el in list_xml_el]
 
-    def getArticle(byte, pageID):
+    def getArticle(self, byte, pageID):
         bz2d = BZ2Decompressor()
         byte_string = bz2d.decompress(byte)
         doc = etree.parse(io.BytesIO(b'<root> ' + byte_string + b' </root>'))
-        r = getReadable(doc.xpath("*/id"))
+        r = self.getReadable(doc.xpath("*/id"))
         index = r.index(str(pageID))
-        r = getReadable(doc.xpath("*/revision/text"))[index]
+        r = self.getReadable(doc.xpath("*/revision/text"))[index]
 
         # print(r)
         article = r.find("'''")

@@ -6,7 +6,7 @@ class Keyword:
     def setInput(self, textInput):
         self.textInput = textInput
     def getKeyword(self):
-        keyword = self.model.extract_keywords(doc, keyphrase_ngram_range=(1, 2), stop_words=None)
+        keyword = self.model.extract_keywords(self.textInput, keyphrase_ngram_range=(1, 2), stop_words=None)
         return keyword
 
 
