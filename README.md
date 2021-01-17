@@ -10,3 +10,4 @@ References:
 1. Tensorflow Tutorials
 2. Huggingface Transformers Documentation
 3. Madhav Mishra - Seq2Seq: Abstractive Summarization Using LSTM and Attention Mechanism - https://medium.com/analytics-vidhya/seq2seq-abstractive-summarization-using-lstm-and-attention-mechanism-code-da2e9c439711
+4. https://developer.mozilla.org/en-US/
