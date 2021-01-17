@@ -1,0 +1,20 @@
+{
+	"manifest_version": 2,
+	"name": "Financial Earthen Marshland Creation",
+	"version": "0.0",
+
+	"description": "Determines a confidence score for the truthfulness of a highlighted section of text",
+
+	"icons": {
+		"48": "icons/test-48.png"
+	},
+	
+	"permissions": [
+		"activeTab"
+	],
+
+	"browser_action": {
+		"default_icon": "icons/icon-48.png",
+		"default_popup": "popup/test.html"
+	}
+}
